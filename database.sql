@@ -9,7 +9,7 @@
 -- a database to have everything fixed.
 -- The standard of this database is as follows:
 --
---  -All table names are in plural. Why? A table contains various records so it's like 
+--  -All table names are in plural. Why? A table contains various records so it's like
 --   a collection of values. You don't say "An onion bag", instead you say "An onions bag"...
 --   idk if this sounds good in English, but it does in Spanish :P
 --
@@ -51,7 +51,7 @@ USE `blackeye`;
 -- @author Manulaiko
 --
 -- @version 0.2
--- 
+--
 -- @since 0.1
 --
 
@@ -77,7 +77,7 @@ CREATE TABLE `accounts` (
   `is_premium`                    tinyint(1)            NOT NULL DEFAULT '0',
   `ranks_id`                      int(10)      UNSIGNED NOT NULL DEFAULT '1',
   `rank_points`                   int(10)      UNSIGNED NOT NULL DEFAULT '0',
-  `quests`                        varchar(255)          NOT NULL DEFAULT '[]'
+  `quests`                        varchar(255)          NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -93,7 +93,7 @@ CREATE TABLE `accounts` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -104,7 +104,7 @@ CREATE TABLE `accounts_equipment_configurations` (
   `lasers`                      varchar(1023)          NOT NULL DEFAULT '[]',
   `hellstorms`                  varchar(255)           NOT NULL DEFAULT '[]',
   `generators`                  varchar(1023)          NOT NULL DEFAULT '[]',
-  `extras`                      varchar(1023)          NOT NULL DEFAULT '[]'
+  `extras`                      varchar(1023)          NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -120,7 +120,7 @@ CREATE TABLE `accounts_equipment_configurations` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -131,7 +131,7 @@ CREATE TABLE `accounts_equipment_drones` (
   `levels_id`      tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
   `experience`     smallint(5)   UNSIGNED NOT NULL,
   `damage`         decimal(3,2)           NOT NULL,
-  `configurations` varchar(2047)          NOT NULL DEFAULT '[]' COMMENT '[{"accounts_equipment_hangars_id":1,"items":[{"slots":1,"accounts_equipment_items_id":1}]}]'
+  `configurations` varchar(2047)          NOT NULL DEFAULT '[]' COMMENT '[{"accounts_equipment_hangars_id":1,"items":[{"slots":1,"accounts_equipment_items_id":1}]}]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -147,7 +147,7 @@ CREATE TABLE `accounts_equipment_drones` (
 -- @author Manulaiko
 --
 -- @version 0.2
--- 
+--
 -- @since 0.1
 --
 
@@ -157,7 +157,7 @@ CREATE TABLE `accounts_equipment_hangars` (
   `date`           timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name`           varchar(255)          NOT NULL DEFAULT 'HANGAR',
   `resources`      varchar(1023)         NOT NULL DEFAULT '[0,0,0,0,0,0,0,0,0]',
-  `configurations` varchar(2047)         NOT NULL DEFAULT '[{"configurationId":1,"lasers":[],"heavy_guns":[],"generators":[],"extras":[]},{"configurationId":2,"lasers":[],"heavy_guns":[],"generators":[],"extras":[]}]'
+  `configurations` varchar(2047)         NOT NULL DEFAULT '[{"configurationId":1,"lasers":[],"heavy_guns":[],"generators":[],"extras":[]},{"configurationId":2,"lasers":[],"heavy_guns":[],"generators":[],"extras":[]}]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -173,7 +173,7 @@ CREATE TABLE `accounts_equipment_hangars` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -182,7 +182,7 @@ CREATE TABLE `accounts_equipment_items` (
   `items_id`  int(10)    UNSIGNED NOT NULL,
   `levels_id` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
   `date`      timestamp           NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `amount`    int(10)    UNSIGNED NOT NULL DEFAULT '1'
+  `amount`    int(10)    UNSIGNED NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -192,13 +192,13 @@ CREATE TABLE `accounts_equipment_items` (
 -- Accounts
 --   Equipment
 --     Ships
--- 
+--
 -- If `accounts_equipment_hangars_id` is 0 it means ship stills in shipsyard
 --
 -- @author Manulaiko
 --
 -- @version 0.2
--- 
+--
 -- @since 0.1
 --
 
@@ -207,21 +207,21 @@ CREATE TABLE `accounts_equipment_ships` (
   `accounts_id`                   int(10)      UNSIGNED NOT NULL,
   `accounts_equipment_hangars_id` int(10)      UNSIGNED NOT NULL DEFAULT '0',
   `ships_id`                      smallint(5)  UNSIGNED NOT NULL,
-  `ships_desings_id`              int(10)      UNSIGNED NOT NULL,
+  `ships_designs_id`              int(10)      UNSIGNED NOT NULL,
   `gfx`                           int(10)      UNSIGNED NOT NULL,
   `maps_id`                       int(10)      UNSIGNED NOT NULL,
   `date`                          timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `position`                      varchar(255)          NOT NULL DEFAULT '[]',
   `health`                        int(11)               NOT NULL DEFAULT '0',
   `nanohull`                      int(11)               NOT NULL DEFAULT '0',
-  `shield`                        int(11)               NOT NULL DEFAULT '0'
+  `shield`                        int(11)               NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- 
+--
 -- Accounts
 --   GalaxyGates
 --
@@ -230,7 +230,7 @@ CREATE TABLE `accounts_equipment_ships` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -241,7 +241,7 @@ CREATE TABLE `accounts_galaxygates` (
   `parts`          tinyint(3)  UNSIGNED NOT NULL,
   `wave`           smallint(6)          NOT NULL DEFAULT '-1',
   `lives`          tinyint(4)           NOT NULL DEFAULT '-1',
-  `amount`         tinyint(3)  UNSIGNED NOT NULL DEFAULT '0'
+  `amount`         tinyint(3)  UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -256,12 +256,12 @@ CREATE TABLE `accounts_galaxygates` (
 -- Possible values:
 --  -0: Message isn't read
 --  -1: Message is read
---  -2: Message is deleted 
+--  -2: Message is deleted
 --
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -273,7 +273,7 @@ CREATE TABLE `accounts_messages` (
   `to_accounts_id`   int(10)      UNSIGNED NOT NULL,
   `to_status`        tinyint(1)   UNSIGNED NOT NULL DEFAULT '0',
   `title`            varchar(255)          NOT NULL,
-  `text`             text                  NOT NULL
+  `text`             text                  NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -288,7 +288,7 @@ CREATE TABLE `accounts_messages` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -297,7 +297,7 @@ CREATE TABLE `accounts_profiles` (
   `accounts_id` int(10)        UNSIGNED NOT NULL,
   `skin`        varchar(15)             NOT NULL DEFAULT 'blue',
   `avatar`      varchar(255)            NOT NULL DEFAULT 'default.jpg',
-  `status`      varchar(1023)           NOT NULL
+  `status`      varchar(1023)           NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -366,7 +366,7 @@ CREATE TABLE `accounts_profiles` (
 --    "rank": "Rank 2",
 --    "date": "2015-12-25 00:00:00",
 --  }]
--- 
+--
 -- @author Manulaiko
 --
 -- @version 0.1
@@ -380,15 +380,15 @@ CREATE TABLE `clans` (
   `tag`     varchar(4)             NOT NULL DEFAULT '',
   `name`    varchar(255)           NOT NULL DEFAULT '',
   `ranks`   varchar(1023)          NOT NULL DEFAULT '[]',
-  `members` varchar(1023)          NOT NULL DEFAULT '[]'
+  `members` varchar(1023)          NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Collectables
--- 
+--
 -- A node from game.xml:
 --   <collectable class="2" id="132" resKey="beacon_3_2" easterResKey="beacon_easter_3_2" soundID="3"/>
 -- If you take a look you'll see there are different classes of
@@ -411,7 +411,7 @@ CREATE TABLE `collectables` (
   `gfx`     smallint(3)   UNSIGNED NOT NULL,
   `class`   tinyint(1)             NOT NULL DEFAULT '0' COMMENT '0 = box, 1 = ore, 2 = beacon, 3 = firework',
   `name`    varchar(255)           NOT NULL DEFAULT '',
-  `rewards` varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"items_id":1,"amount":1,"probability":100.0}]'
+  `rewards` varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"items_id":1,"amount":1,"probability":100.0}]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -547,7 +547,7 @@ CREATE TABLE `drones` (
   `items_id` int(10)       UNSIGNED NOT NULL,
   `graphics` varchar(1024)          NOT NULL DEFAULT '[]' COMMENT '[{"levels_id":1,"gfx":1}]',
   `slots`    tinyint(4)             NOT NULL,
-  `bonus`    varchar(1024)          NOT NULL DEFAULT '[]' COMMENT '[{"type":"damage","value":10.0,"conditions":[]}]'
+  `bonus`    varchar(1024)          NOT NULL DEFAULT '[]' COMMENT '[{"type":"damage","value":10.0,"conditions":[]}]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -560,7 +560,7 @@ CREATE TABLE `drones` (
 -- @author Manulaiko
 --
 -- @version 0.2
--- 
+--
 -- @since 0.1
 --
 
@@ -571,7 +571,7 @@ CREATE TABLE `factions` (
   `color`         char(6)               NOT NULL,
   `is_public`     tinyint(1)            NOT NULL DEFAULT '0',
   `home_maps_id`  tinyint(3)   UNSIGNED NOT NULL DEFAULT '1',
-  `home_position` varchar(255)          NOT NULL DEFAULT '[1000,1000]'
+  `home_position` varchar(255)          NOT NULL DEFAULT '[1000,1000]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -655,7 +655,7 @@ INSERT INTO `factions` (`id`, `name`, `abbreviation`, `color`, `is_public`, `hom
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -664,7 +664,7 @@ CREATE TABLE `galaxygates` (
   `maps_id` tinyint(3)    UNSIGNED NOT NULL,
   `parts`   tinyint(3)    UNSIGNED NOT NULL,
   `reward`  varchar(1023)          NOT NULL DEFAULT '{"experience":0,"honor":0,"uridium":0,"credits":0,"resources":[0,0,0,0,0,0,0,0,0],"others":[]}',
-  `waves`   varchar(2047)          NOT NULL DEFAULT '[]'
+  `waves`   varchar(2047)          NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -676,7 +676,7 @@ CREATE TABLE `galaxygates` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -688,7 +688,7 @@ CREATE TABLE `items` (
   `filter`     tinyint(3)   UNSIGNED NOT NULL,
   `price_buy`  int(10)      UNSIGNED NOT NULL,
   `price_sell` int(10)      UNSIGNED NOT NULL,
-  `is_elite`   tinyint(1)            NOT NULL DEFAULT '0'
+  `is_elite`   tinyint(1)            NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -700,7 +700,7 @@ CREATE TABLE `items` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -710,7 +710,7 @@ CREATE TABLE `levels` (
   `drones`          smallint(6)            NOT NULL DEFAULT '-1',
   `pets`            int(11)                NOT NULL DEFAULT '-1',
   `upgrade_credits` varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"probability":5,"amount":100000}]',
-  `upgrade_uridium` varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"probability":5,"amount":200}]'
+  `upgrade_uridium` varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"probability":5,"amount":200}]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -820,7 +820,7 @@ INSERT INTO `levels` (`id`, `accounts`, `drones`, `pets`, `upgrade_credits`, `up
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -833,7 +833,7 @@ CREATE TABLE `maps` (
   `npcs`        varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"npcs_id":1,"amount":100}]',
   `is_pvp`      tinyint(1)             NOT NULL DEFAULT '0',
   `is_starter`  tinyint(1)             NOT NULL DEFAULT '0',
-  `factions_id` tinyint(1)    UNSIGNED NOT NULL DEFAULT '0'
+  `factions_id` tinyint(1)    UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -845,7 +845,7 @@ CREATE TABLE `maps` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -854,7 +854,7 @@ CREATE TABLE `news` (
   `date`      timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `permalink` varchar(31)           NOT NULL,
   `title`     varchar(255)          NOT NULL,
-  `text`      text                  NOT NULL
+  `text`      text                  NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -882,7 +882,7 @@ CREATE TABLE `npcs` (
   `damage`            int(10)       UNSIGNED NOT NULL,
   `speed`             smallint(5)   UNSIGNED NOT NULL,
   `reward`            varchar(2048)          NOT NULL DEFAULT '[]' COMMENT ' {"experience":0,"honor":0,"uridium":0,"credits":0,"resources":[0,0,0,0,0,0,0,0,0],"others":[]} ',
-  `ai_type`           tinyint(3)    UNSIGNED NOT NULL
+  `ai_type`           tinyint(3)    UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -912,7 +912,7 @@ CREATE TABLE `npcs` (
 --   Each index is an object that contains the thing to do
 --   The content of the object can vary from each kind of thing
 --   (Collect ore, kill enemies, stay alive...)
--- 
+--
 --   Common variables:
 --    -type:      The kind of type the user must complete.
 --                it can be either a constant (uppercase string) or a integer
@@ -944,14 +944,14 @@ CREATE TABLE `npcs` (
 --                   "value": 5,//Don't die more than 5 times (0=Must complete the condition without dying)
 --                 }]
 --    -locked: A boolean that tells if the user needs to complete the condition asked before the current one
--- 
+--
 --   Variables for each type:
 --   COLLECT:
 --    Requires user to collect collectables.
 --    Variables:
 --     -collectables_id: Identifier of table `collectables` (0=any)
 --     -amount:          Amount of collectables to collect
--- 
+--
 --   FLY_DISTANCE:
 --    Requires user to fly a distance.
 --    Variables:
@@ -1020,14 +1020,14 @@ CREATE TABLE `npcs` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
 CREATE TABLE `quests` (
   `id`     int(10)       UNSIGNED NOT NULL AUTO_INCREMENT,
   `reward` varchar(1023)          NOT NULL,
-  `quest`  text                   NOT NULL
+  `quest`  text                   NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -1039,14 +1039,14 @@ CREATE TABLE `quests` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
 CREATE TABLE `ranks` (
   `id`         int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
   `name`       varchar(31)           NOT NULL,
-  `percentage` decimal(3,2)          NOT NULL DEFAULT '0.00'
+  `percentage` decimal(3,2)          NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -1064,7 +1064,7 @@ CREATE TABLE `ranks` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 CREATE TABLE `ships` (
@@ -1076,7 +1076,7 @@ CREATE TABLE `ships` (
   `laser`      tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
   `generators` tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
   `extras`     tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
-  `reward`     varchar(2047)          NOT NULL DEFAULT '{"experience":0,"honor":0}'
+  `reward`     varchar(2047)          NOT NULL DEFAULT '{"experience":0,"honor":0}',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -1107,7 +1107,7 @@ CREATE TABLE `ships_designs` (
   `id`       int(10)       UNSIGNED NOT NULL AUTO_INCREMENT,
   `ships_id` int(10)       UNSIGNED NOT NULL,
   `gfx`      int(11)                NOT NULL,
-  `bonus`    varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"type":"experience","value":10.0,"conditions":[]},{"type":"honor","value":10.0,"conditions":[]}]'
+  `bonus`    varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"type":"experience","value":10.0,"conditions":[]},{"type":"honor","value":10.0,"conditions":[]}]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -1121,7 +1121,7 @@ CREATE TABLE `ships_designs` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 
@@ -1129,7 +1129,7 @@ CREATE TABLE `trade` (
   `id`          int(10)    UNSIGNED NOT NULL AUTO_INCREMENT,
   `items_id`    int(10)    UNSIGNED NOT NULL,
   `accounts_id` int(10)    UNSIGNED NOT NULL DEFAULT '0',
-  `bid`         bigint(20) UNSIGNED NOT NULL DEFAULT '0'
+  `bid`         bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -1150,7 +1150,7 @@ CREATE TABLE `trade` (
 -- @author Manulaiko
 --
 -- @version 0.1
--- 
+--
 -- @since 0.1
 --
 CREATE TABLE `users` (
@@ -1167,6 +1167,6 @@ CREATE TABLE `users` (
   `password`                char(32)              NOT NULL,
   `email`                   varchar(255)          NOT NULL,
   `email_verification_code` char(32)              NOT NULL,
-  `email_verification_date` timestamp             NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `email_verification_date` timestamp             NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
