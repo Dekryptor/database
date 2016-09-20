@@ -238,7 +238,7 @@ CREATE TABLE `accounts_equipment_ships` (
 --
 
 CREATE TABLE `accounts_galaxygates` (
-  `id`             int(10)     UNSIGNED NOT NULL,
+  `id`             int(10)     UNSIGNED NOT NULL AUTO_INCREMENT,
   `galaxygates_id` tinyint(3)  UNSIGNED NOT NULL,
   `accounts_id`    int(10)     UNSIGNED NOT NULL,
   `parts`          tinyint(3)  UNSIGNED NOT NULL,
@@ -1078,9 +1078,11 @@ CREATE TABLE `ships` (
   `health`     int(10)       UNSIGNED NOT NULL DEFAULT '1000',
   `speed`      smallint(5)   UNSIGNED NOT NULL DEFAULT '100',
   `cargo`      smallint(5)   UNSIGNED NOT NULL DEFAULT '100',
-  `laser`      tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
+  `lasers`     tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
   `generators` tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
   `extras`     tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
+  `batteries`  int(10)       UNSIGNED NOT NULL DEFAULT '2000',
+  `rockets`    int(10)       UNSIGNED NOT NULL DEFAULT '100',
   `reward`     varchar(2047)          NOT NULL DEFAULT '{"experience":0,"honor":0}',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
