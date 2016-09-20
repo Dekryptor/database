@@ -572,20 +572,21 @@ CREATE TABLE `drones` (
 --
 
 CREATE TABLE `factions` (
-  `id`            tinyint(3)   UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name`          varchar(255)          NOT NULL,
-  `abbreviation`  char(3)               NOT NULL,
-  `color`         char(6)               NOT NULL,
-  `is_public`     tinyint(1)            NOT NULL DEFAULT '0',
-  `home_maps_id`  tinyint(3)   UNSIGNED NOT NULL DEFAULT '1',
-  `home_position` varchar(255)          NOT NULL DEFAULT '[1000,1000]',
+  `id`            tinyint(3)    UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name`          varchar(255)           NOT NULL,
+  `abbreviation`  char(3)                NOT NULL,
+  `color`         char(6)                NOT NULL,
+  `is_public`     tinyint(1)             NOT NULL DEFAULT '0',
+  `description`   text                   NOT NULL,
+  `home_maps_id`  tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
+  `home_position` varchar(255)           NOT NULL DEFAULT '[1000,1000]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 INSERT INTO `factions` (`id`, `name`, `abbreviation`, `color`, `is_public`, `home_maps_id`, `home_position`) VALUES
-(1, 'Mars Mining Operations', 'mmo', 'FF8787', 1, 1, '[1000,1000]'),
-(2, 'Earth Industries Corporations', 'eic', '87FFFF', 1, 5, '[18500,1000]'),
-(3, 'Venus Resources Unlimited', 'vru', 'C3FF87', 1, 8, '[18500,12500]');
+(1, 'Mars Mining Operations', 'mmo', 'FF8787', 1, 'I\'m not going to blow smoke up your tush, so I\'ll just get straight to the point. We at Mars Mining Operations want you for two reasons: to mine ore and to eradicate all alien scum infecting our galactic sector. Do this successfully and you\'ll soon be popping rival pilots for thrills and honor!', '[]', 1, '[1000,1000]'),
+(2, 'Earth Industries Corporations', 'eic', '87FFFF', 1, 'Pilot, these are trying times during which only those made of the purest inner steel can prevail! How tough is your mettle? We reward loyalty and impeccable manners with the best lasers Uridium can buy. Join us in the fight to cleanse our sector of all those cretins that stand in our way. For glory and privilege!', '[]', 5, '[18500,1000]'),
+(3, 'Venus Resources Unlimited', 'vru', 'C3FF87', 1, 'We pride ourselves in our ability to push the envelope of technological advancement, while retaining a communal atmosphere. Some call us a cult desiring galactic domination, but they simply misunderstand our brilliant recruitment methods. We are always looking for talented pilots to help us destroy our enemies and shape humanity\'s future!', '[]', 8, '[18500,12500]');
 
 -- --------------------------------------------------------
 
