@@ -33,7 +33,7 @@
 --
 -- @author Manulaiko
 --
--- @version 0.3
+-- @version 0.4
 --
 
 -- Change the name of the database here
@@ -50,7 +50,7 @@ USE `blackeye`;
 --
 -- @author Manulaiko
 --
--- @version 0.2
+-- @version 0.3
 --
 -- @since 0.1
 --
@@ -77,6 +77,9 @@ CREATE TABLE `accounts` (
   `is_premium`                    tinyint(1)            NOT NULL DEFAULT '0',
   `ranks_id`                      int(10)      UNSIGNED NOT NULL DEFAULT '1',
   `rank_points`                   int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `rank_position`                 int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `rank_best_points`              int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `rank_best_position`            int(10)      UNSIGNED NOT NULL DEFAULT '0',
   `quests`                        varchar(255)          NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -146,18 +149,18 @@ CREATE TABLE `accounts_equipment_drones` (
 --
 -- @author Manulaiko
 --
--- @version 0.2
+-- @version 0.3
 --
 -- @since 0.1
 --
 
 CREATE TABLE `accounts_equipment_hangars` (
-  `id`             int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
-  `accounts_id`    int(10)      UNSIGNED NOT NULL,
-  `date`           timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name`           varchar(255)          NOT NULL DEFAULT 'HANGAR',
-  `resources`      varchar(1023)         NOT NULL DEFAULT '[0,0,0,0,0,0,0,0,0]',
-  `configurations` varchar(2047)         NOT NULL DEFAULT '[{"configurationId":1,"lasers":[],"heavy_guns":[],"generators":[],"extras":[]},{"configurationId":2,"lasers":[],"heavy_guns":[],"generators":[],"extras":[]}]',
+  `id`                          int(10)       UNSIGNED NOT NULL AUTO_INCREMENT,
+  `accounts_id`                 int(10)       UNSIGNED NOT NULL,
+  `accounts_equipment_ships_id` int(10)       UNSIGNED NOT NULL,
+  `date`                        timestamp              NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name`                        varchar(255)           NOT NULL DEFAULT 'HANGAR',
+  `resources`                   varchar(1023)          NOT NULL DEFAULT '[0,0,0,0,0,0,0,0,0]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -197,24 +200,24 @@ CREATE TABLE `accounts_equipment_items` (
 --
 -- @author Manulaiko
 --
--- @version 0.2
+-- @version 0.3
 --
 -- @since 0.1
 --
 
 CREATE TABLE `accounts_equipment_ships` (
-  `id`                            int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
-  `accounts_id`                   int(10)      UNSIGNED NOT NULL,
-  `accounts_equipment_hangars_id` int(10)      UNSIGNED NOT NULL DEFAULT '0',
-  `ships_id`                      smallint(5)  UNSIGNED NOT NULL,
-  `ships_designs_id`              int(10)      UNSIGNED NOT NULL,
-  `gfx`                           int(10)      UNSIGNED NOT NULL,
-  `maps_id`                       int(10)      UNSIGNED NOT NULL,
-  `date`                          timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `position`                      varchar(255)          NOT NULL DEFAULT '[]',
-  `health`                        int(11)               NOT NULL DEFAULT '0',
-  `nanohull`                      int(11)               NOT NULL DEFAULT '0',
-  `shield`                        int(11)               NOT NULL DEFAULT '0',
+  `id`                   int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
+  `accounts_id`          int(10)      UNSIGNED NOT NULL,
+  `ships_id`             smallint(5)  UNSIGNED NOT NULL,
+  `ships_designs_id`     int(10)      UNSIGNED NOT NULL,
+  `gfx`                  int(10)      UNSIGNED NOT NULL,
+  `maps_id`              int(10)      UNSIGNED NOT NULL,
+  `date`                 timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `active_configuration` int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `position`             varchar(255)          NOT NULL DEFAULT '[]',
+  `health`               int(11)               NOT NULL DEFAULT '0',
+  `nanohull`             int(11)               NOT NULL DEFAULT '0',
+  `shield`               int(11)               NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -229,13 +232,13 @@ CREATE TABLE `accounts_equipment_ships` (
 --
 -- @author Manulaiko
 --
--- @version 0.1
+-- @version 0.2
 --
 -- @since 0.1
 --
 
 CREATE TABLE `accounts_galaxygates` (
-  `id`             int(10)     UNSIGNED NOT NULL,
+  `id`             int(10)     UNSIGNED NOT NULL AUTO_INCREMENT,
   `galaxygates_id` tinyint(3)  UNSIGNED NOT NULL,
   `accounts_id`    int(10)     UNSIGNED NOT NULL,
   `parts`          tinyint(3)  UNSIGNED NOT NULL,
@@ -369,18 +372,22 @@ CREATE TABLE `accounts_profiles` (
 --
 -- @author Manulaiko
 --
--- @version 0.1
+-- @version 0.2
 --
 -- @since 0.2
 --
 
 CREATE TABLE `clans` (
-  `id`      int(11)       UNSIGNED NOT NULL AUTO_INCREMENT,
-  `date`    timestamp              NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tag`     varchar(4)             NOT NULL DEFAULT '',
-  `name`    varchar(255)           NOT NULL DEFAULT '',
-  `ranks`   varchar(1023)          NOT NULL DEFAULT '[]',
-  `members` varchar(1023)          NOT NULL DEFAULT '[]',
+  `id`                 int(11)       UNSIGNED NOT NULL AUTO_INCREMENT,
+  `date`               timestamp              NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tag`                varchar(4)             NOT NULL DEFAULT '',
+  `name`               varchar(255)           NOT NULL DEFAULT '',
+  `rank_points`        int(10)                NOT NULL DEFAULT '0',
+  `rank_position`      int(10)                NOT NULL DEFAULT '0',
+  `rank_best_points`   int(10)                NOT NULL DEFAULT '0',
+  `rank_best_position` int(10)                NOT NULL DEFAULT '0',
+  `ranks`              varchar(1023)          NOT NULL DEFAULT '[]',
+  `members`            varchar(1023)          NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -559,26 +566,27 @@ CREATE TABLE `drones` (
 --
 -- @author Manulaiko
 --
--- @version 0.2
+-- @version 0.3
 --
 -- @since 0.1
 --
 
 CREATE TABLE `factions` (
-  `id`            tinyint(3)   UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name`          varchar(255)          NOT NULL,
-  `abbreviation`  char(3)               NOT NULL,
-  `color`         char(6)               NOT NULL,
-  `is_public`     tinyint(1)            NOT NULL DEFAULT '0',
-  `home_maps_id`  tinyint(3)   UNSIGNED NOT NULL DEFAULT '1',
-  `home_position` varchar(255)          NOT NULL DEFAULT '[1000,1000]',
+  `id`            tinyint(3)    UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name`          varchar(255)           NOT NULL,
+  `abbreviation`  char(3)                NOT NULL,
+  `color`         char(6)                NOT NULL,
+  `is_public`     tinyint(1)             NOT NULL DEFAULT '0',
+  `description`   text                   NOT NULL,
+  `home_maps_id`  tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
+  `home_position` varchar(255)           NOT NULL DEFAULT '[1000,1000]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 INSERT INTO `factions` (`id`, `name`, `abbreviation`, `color`, `is_public`, `home_maps_id`, `home_position`) VALUES
-(1, 'Mars Mining Operations', 'mmo', 'FF8787', 1, 1, '[1000,1000]'),
-(2, 'Earth Industries Corporations', 'eic', '87FFFF', 1, 5, '[18500,1000]'),
-(3, 'Venus Resources Unlimited', 'vru', 'C3FF87', 1, 8, '[18500,12500]');
+(1, 'Mars Mining Operations', 'mmo', 'FF8787', 1, 'I\'m not going to blow smoke up your tush, so I\'ll just get straight to the point. We at Mars Mining Operations want you for two reasons: to mine ore and to eradicate all alien scum infecting our galactic sector. Do this successfully and you\'ll soon be popping rival pilots for thrills and honor!', '[]', 1, '[1000,1000]'),
+(2, 'Earth Industries Corporations', 'eic', '87FFFF', 1, 'Pilot, these are trying times during which only those made of the purest inner steel can prevail! How tough is your mettle? We reward loyalty and impeccable manners with the best lasers Uridium can buy. Join us in the fight to cleanse our sector of all those cretins that stand in our way. For glory and privilege!', '[]', 5, '[18500,1000]'),
+(3, 'Venus Resources Unlimited', 'vru', 'C3FF87', 1, 'We pride ourselves in our ability to push the envelope of technological advancement, while retaining a communal atmosphere. Some call us a cult desiring galactic domination, but they simply misunderstand our brilliant recruitment methods. We are always looking for talented pilots to help us destroy our enemies and shape humanity\'s future!', '[]', 8, '[18500,12500]');
 
 -- --------------------------------------------------------
 
@@ -760,35 +768,6 @@ INSERT INTO `levels` (`id`, `accounts`, `drones`, `pets`, `upgrade_credits`, `up
 
 --
 -- Maps
--- Portals JSON:
---   An array containing objects that represents the portal.
---   Variables:
---    -level: Required level in order to use the portal
---    -position: An array containing X and Y position (0 = x, 1 = y)
---    -target_position: The position of the user once he has used the portal
---    -target_maps_id: The map of the user once he has used the portal
---    -is_visible
---    -is_working: Some pirate maps portals don't work
---    -faction_scrap: Pirate maps portals has a cartel with faction name in it
---    -gfx: Take a look at game.xml
---
---   Example:
---    [{
---      "level": 1,
---      "position": [
---        18500, //X
---        12000, //Y
---      ],
---      "target_position": [
---        1000, //X
---        1000, //Y
---      ],
---      "target_maps_id": 2,
---      "is_visible": true,
---      "is_working": true,
---      "faction_scrap": 0, //No faction scrap
---      "gfx": 1 //Default portal
---    }]
 --
 -- Stations JSON:
 --   An array containing map's station.
@@ -819,22 +798,48 @@ INSERT INTO `levels` (`id`, `accounts`, `drones`, `pets`, `upgrade_credits`, `up
 --
 -- @author Manulaiko
 --
--- @version 0.1
+-- @version 0.2
 --
 -- @since 0.1
 --
 
 CREATE TABLE `maps` (
-  `id`          int(10)       UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name`        char(3)                NOT NULL,
-  `limits`      varchar(255)           NOT NULL DEFAULT '[20800,12800]',
-  `portals`     varchar(2047)          NOT NULL DEFAULT '[]' COMMENT '[{"level":1,"position":[1000,1000],"target_position":[1000,1000],"target_maps_id":2,"is_visible":true,"is_working":true,"factions_scrap":0,"gfx":1}]',
-  `stations`    varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"position":[1000,1000],"factions_id":1}]',
-  `npcs`        varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"npcs_id":1,"amount":100}]',
-  `is_pvp`      tinyint(1)             NOT NULL DEFAULT '0',
-  `is_starter`  tinyint(1)             NOT NULL DEFAULT '0',
-  `factions_id` tinyint(1)    UNSIGNED NOT NULL DEFAULT '0',
+  `id`           int(10)       UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name`         char(3)                NOT NULL,
+  `limits`       varchar(255)           NOT NULL DEFAULT '[20800,12800]',
+  `stations`     varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"position":[1000,1000],"factions_id":1}]',
+  `npcs`         varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"npcs_id":1,"amount":100}]',
+  `collectables` varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"collectables_id":1,"amount":200,"top_x":[1000,1000],"bottom_y":[4000,4000]}]'
+  `is_pvp`       tinyint(1)             NOT NULL DEFAULT '0',
+  `is_starter`   tinyint(1)             NOT NULL DEFAULT '0',
+  `factions_id`  tinyint(1)    UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Maps' portals
+--
+-- @author Manulaiko
+--
+-- @version 0.1
+--
+-- @since 0.4
+--
+
+CREATE TABLE `maps_portals` (
+  `id`              int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
+  `maps_id`         int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `levels_id`       int(10)      UNSIGNED NOT NULL DEFAULT '1',
+  `position`        varchar(255)          NOT NULL DEFAULT '[]',
+  `target_maps_id`  int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `target_position` varchar(255)          NOT NULL DEFAULT '[]',
+  `is_visible`      boolean(1)            NOT NULL DEFAULT '1',
+  `is_working`      boolean(1)            NOT NULL DEFAULT '1',
+  `factions_scrap`  tinyint(3)   UNSIGNED NOT NULL DEFAULT '0',
+  `gfx`             tinyint(3)   UNSIGNED NOT NULL DEFAULT '1',
+  PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -881,7 +886,7 @@ CREATE TABLE `npcs` (
   `shield_absorbtion` decimal(3,2)           NOT NULL DEFAULT '9.99',
   `damage`            int(10)       UNSIGNED NOT NULL,
   `speed`             smallint(5)   UNSIGNED NOT NULL,
-  `reward`            varchar(2048)          NOT NULL DEFAULT '[]' COMMENT ' {"experience":0,"honor":0,"uridium":0,"credits":0,"resources":[0,0,0,0,0,0,0,0,0],"others":[]} ',
+  `reward`            varchar(2048)          NOT NULL DEFAULT '{"experience":0,"honor":0,"uridium":0,"credits":0,"resources":[0,0,0,0,0,0,0,0,0],"others":[]}' COMMENT '{"experience":0,"honor":0,"uridium":0,"credits":0,"resources":[0,0,0,0,0,0,0,0,0],"others":[]}',
   `ai_type`           tinyint(3)    UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -1063,7 +1068,7 @@ CREATE TABLE `ranks` (
 --
 -- @author Manulaiko
 --
--- @version 0.1
+-- @version 0.2
 --
 -- @since 0.1
 --
@@ -1073,9 +1078,11 @@ CREATE TABLE `ships` (
   `health`     int(10)       UNSIGNED NOT NULL DEFAULT '1000',
   `speed`      smallint(5)   UNSIGNED NOT NULL DEFAULT '100',
   `cargo`      smallint(5)   UNSIGNED NOT NULL DEFAULT '100',
-  `laser`      tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
+  `lasers`     tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
   `generators` tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
   `extras`     tinyint(3)    UNSIGNED NOT NULL DEFAULT '1',
+  `batteries`  int(10)       UNSIGNED NOT NULL DEFAULT '2000',
+  `rockets`    int(10)       UNSIGNED NOT NULL DEFAULT '100',
   `reward`     varchar(2047)          NOT NULL DEFAULT '{"experience":0,"honor":0}',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
