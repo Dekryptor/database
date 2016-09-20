@@ -155,12 +155,12 @@ CREATE TABLE `accounts_equipment_drones` (
 --
 
 CREATE TABLE `accounts_equipment_hangars` (
-  `id`             int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
-  `accounts_id`    int(10)      UNSIGNED NOT NULL,
-  `date`           timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name`           varchar(255)          NOT NULL DEFAULT 'HANGAR',
-  `resources`      varchar(1023)         NOT NULL DEFAULT '[0,0,0,0,0,0,0,0,0]',
-  `configurations` varchar(2047)         NOT NULL DEFAULT '[{"configurationId":1,"lasers":[],"heavy_guns":[],"generators":[],"extras":[]},{"configurationId":2,"lasers":[],"heavy_guns":[],"generators":[],"extras":[]}]',
+  `id`                          int(10)       UNSIGNED NOT NULL AUTO_INCREMENT,
+  `accounts_id`                 int(10)       UNSIGNED NOT NULL,
+  `accounts_equipment_ships_id` int(10)       UNSIGNED NOT NULL,
+  `date`                        timestamp              NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name`                        varchar(255)           NOT NULL DEFAULT 'HANGAR',
+  `resources`                   varchar(1023)          NOT NULL DEFAULT '[0,0,0,0,0,0,0,0,0]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -206,18 +206,18 @@ CREATE TABLE `accounts_equipment_items` (
 --
 
 CREATE TABLE `accounts_equipment_ships` (
-  `id`                            int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
-  `accounts_id`                   int(10)      UNSIGNED NOT NULL,
-  `accounts_equipment_hangars_id` int(10)      UNSIGNED NOT NULL DEFAULT '0',
-  `ships_id`                      smallint(5)  UNSIGNED NOT NULL,
-  `ships_designs_id`              int(10)      UNSIGNED NOT NULL,
-  `gfx`                           int(10)      UNSIGNED NOT NULL,
-  `maps_id`                       int(10)      UNSIGNED NOT NULL,
-  `date`                          timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `position`                      varchar(255)          NOT NULL DEFAULT '[]',
-  `health`                        int(11)               NOT NULL DEFAULT '0',
-  `nanohull`                      int(11)               NOT NULL DEFAULT '0',
-  `shield`                        int(11)               NOT NULL DEFAULT '0',
+  `id`                   int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
+  `accounts_id`          int(10)      UNSIGNED NOT NULL,
+  `ships_id`             smallint(5)  UNSIGNED NOT NULL,
+  `ships_designs_id`     int(10)      UNSIGNED NOT NULL,
+  `gfx`                  int(10)      UNSIGNED NOT NULL,
+  `maps_id`              int(10)      UNSIGNED NOT NULL,
+  `date`                 timestamp             NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `active_configuration` int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `position`             varchar(255)          NOT NULL DEFAULT '[]',
+  `health`               int(11)               NOT NULL DEFAULT '0',
+  `nanohull`             int(11)               NOT NULL DEFAULT '0',
+  `shield`               int(11)               NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
