@@ -767,35 +767,6 @@ INSERT INTO `levels` (`id`, `accounts`, `drones`, `pets`, `upgrade_credits`, `up
 
 --
 -- Maps
--- Portals JSON:
---   An array containing objects that represents the portal.
---   Variables:
---    -level: Required level in order to use the portal
---    -position: An array containing X and Y position (0 = x, 1 = y)
---    -target_position: The position of the user once he has used the portal
---    -target_maps_id: The map of the user once he has used the portal
---    -is_visible
---    -is_working: Some pirate maps portals don't work
---    -faction_scrap: Pirate maps portals has a cartel with faction name in it
---    -gfx: Take a look at game.xml
---
---   Example:
---    [{
---      "level": 1,
---      "position": [
---        18500, //X
---        12000, //Y
---      ],
---      "target_position": [
---        1000, //X
---        1000, //Y
---      ],
---      "target_maps_id": 2,
---      "is_visible": true,
---      "is_working": true,
---      "faction_scrap": 0, //No faction scrap
---      "gfx": 1 //Default portal
---    }]
 --
 -- Stations JSON:
 --   An array containing map's station.
@@ -832,16 +803,42 @@ INSERT INTO `levels` (`id`, `accounts`, `drones`, `pets`, `upgrade_credits`, `up
 --
 
 CREATE TABLE `maps` (
-  `id`          int(10)       UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name`        char(3)                NOT NULL,
-  `limits`      varchar(255)           NOT NULL DEFAULT '[20800,12800]',
-  `portals`     varchar(2047)          NOT NULL DEFAULT '[]' COMMENT '[{"level":1,"position":[1000,1000],"target_position":[1000,1000],"target_maps_id":2,"is_visible":true,"is_working":true,"factions_scrap":0,"gfx":1}]',
-  `stations`    varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"position":[1000,1000],"factions_id":1}]',
-  `npcs`        varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"npcs_id":1,"amount":100}]',
-  `is_pvp`      tinyint(1)             NOT NULL DEFAULT '0',
-  `is_starter`  tinyint(1)             NOT NULL DEFAULT '0',
-  `factions_id` tinyint(1)    UNSIGNED NOT NULL DEFAULT '0',
+  `id`           int(10)       UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name`         char(3)                NOT NULL,
+  `limits`       varchar(255)           NOT NULL DEFAULT '[20800,12800]',
+  `stations`     varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"position":[1000,1000],"factions_id":1}]',
+  `npcs`         varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"npcs_id":1,"amount":100}]',
+  `collectables` varchar(1023)          NOT NULL DEFAULT '[]' COMMENT '[{"collectables_id":1,"amount":200,"top_x":[1000,1000],"bottom_y":[4000,4000]}]'
+  `is_pvp`       tinyint(1)             NOT NULL DEFAULT '0',
+  `is_starter`   tinyint(1)             NOT NULL DEFAULT '0',
+  `factions_id`  tinyint(1)    UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Maps' portals
+--
+-- @author Manulaiko
+--
+-- @version 0.1
+--
+-- @since 0.4
+--
+
+CREATE TABLE `maps_portals` (
+  `id`              int(10)      UNSIGNED NOT NULL AUTO_INCREMENT,
+  `maps_id`         int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `levels_id`       int(10)      UNSIGNED NOT NULL DEFAULT '1',
+  `position`        varchar(255)          NOT NULL DEFAULT '[]',
+  `target_maps_id`  int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `target_position` varchar(255)          NOT NULL DEFAULT '[]',
+  `is_visible`      boolean(1)            NOT NULL DEFAULT '1',
+  `is_working`      boolean(1)            NOT NULL DEFAULT '1',
+  `factions_scrap`  tinyint(3)   UNSIGNED NOT NULL DEFAULT '0',
+  `gfx`             tinyint(3)   UNSIGNED NOT NULL DEFAULT '1',
+  PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -888,7 +885,7 @@ CREATE TABLE `npcs` (
   `shield_absorbtion` decimal(3,2)           NOT NULL DEFAULT '9.99',
   `damage`            int(10)       UNSIGNED NOT NULL,
   `speed`             smallint(5)   UNSIGNED NOT NULL,
-  `reward`            varchar(2048)          NOT NULL DEFAULT '[]' COMMENT ' {"experience":0,"honor":0,"uridium":0,"credits":0,"resources":[0,0,0,0,0,0,0,0,0],"others":[]} ',
+  `reward`            varchar(2048)          NOT NULL DEFAULT '{"experience":0,"honor":0,"uridium":0,"credits":0,"resources":[0,0,0,0,0,0,0,0,0],"others":[]}' COMMENT '{"experience":0,"honor":0,"uridium":0,"credits":0,"resources":[0,0,0,0,0,0,0,0,0],"others":[]}',
   `ai_type`           tinyint(3)    UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
