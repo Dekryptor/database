@@ -77,6 +77,9 @@ CREATE TABLE `accounts` (
   `is_premium`                    tinyint(1)            NOT NULL DEFAULT '0',
   `ranks_id`                      int(10)      UNSIGNED NOT NULL DEFAULT '1',
   `rank_points`                   int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `rank_position`                 int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `rank_best_points`              int(10)      UNSIGNED NOT NULL DEFAULT '0',
+  `rank_best_position`            int(10)      UNSIGNED NOT NULL DEFAULT '0',
   `quests`                        varchar(255)          NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -375,12 +378,16 @@ CREATE TABLE `accounts_profiles` (
 --
 
 CREATE TABLE `clans` (
-  `id`      int(11)       UNSIGNED NOT NULL AUTO_INCREMENT,
-  `date`    timestamp              NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tag`     varchar(4)             NOT NULL DEFAULT '',
-  `name`    varchar(255)           NOT NULL DEFAULT '',
-  `ranks`   varchar(1023)          NOT NULL DEFAULT '[]',
-  `members` varchar(1023)          NOT NULL DEFAULT '[]',
+  `id`                 int(11)       UNSIGNED NOT NULL AUTO_INCREMENT,
+  `date`               timestamp              NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tag`                varchar(4)             NOT NULL DEFAULT '',
+  `name`               varchar(255)           NOT NULL DEFAULT '',
+  `rank_points`        int(10)                NOT NULL DEFAULT '0',
+  `rank_position`      int(10)                NOT NULL DEFAULT '0',
+  `rank_best_points`   int(10)                NOT NULL DEFAULT '0',
+  `rank_best_position` int(10)                NOT NULL DEFAULT '0',
+  `ranks`              varchar(1023)          NOT NULL DEFAULT '[]',
+  `members`            varchar(1023)          NOT NULL DEFAULT '[]',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
