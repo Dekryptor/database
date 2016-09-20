@@ -33,7 +33,7 @@
 --
 -- @author Manulaiko
 --
--- @version 0.3
+-- @version 0.4
 --
 
 -- Change the name of the database here
@@ -50,7 +50,7 @@ USE `blackeye`;
 --
 -- @author Manulaiko
 --
--- @version 0.2
+-- @version 0.3
 --
 -- @since 0.1
 --
@@ -149,7 +149,7 @@ CREATE TABLE `accounts_equipment_drones` (
 --
 -- @author Manulaiko
 --
--- @version 0.2
+-- @version 0.3
 --
 -- @since 0.1
 --
@@ -200,7 +200,7 @@ CREATE TABLE `accounts_equipment_items` (
 --
 -- @author Manulaiko
 --
--- @version 0.2
+-- @version 0.3
 --
 -- @since 0.1
 --
@@ -232,7 +232,7 @@ CREATE TABLE `accounts_equipment_ships` (
 --
 -- @author Manulaiko
 --
--- @version 0.1
+-- @version 0.2
 --
 -- @since 0.1
 --
@@ -372,7 +372,7 @@ CREATE TABLE `accounts_profiles` (
 --
 -- @author Manulaiko
 --
--- @version 0.1
+-- @version 0.2
 --
 -- @since 0.2
 --
@@ -566,7 +566,7 @@ CREATE TABLE `drones` (
 --
 -- @author Manulaiko
 --
--- @version 0.2
+-- @version 0.3
 --
 -- @since 0.1
 --
@@ -798,7 +798,7 @@ INSERT INTO `levels` (`id`, `accounts`, `drones`, `pets`, `upgrade_credits`, `up
 --
 -- @author Manulaiko
 --
--- @version 0.1
+-- @version 0.2
 --
 -- @since 0.1
 --
@@ -1068,7 +1068,7 @@ CREATE TABLE `ranks` (
 --
 -- @author Manulaiko
 --
--- @version 0.1
+-- @version 0.2
 --
 -- @since 0.1
 --
