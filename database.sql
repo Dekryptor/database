@@ -717,6 +717,8 @@ CREATE TABLE `levels` (
   `accounts`        bigint(20)    UNSIGNED NOT NULL,
   `drones`          smallint(6)            NOT NULL DEFAULT '-1',
   `pets`            int(11)                NOT NULL DEFAULT '-1',
+  `damage`          decimal(1,2)           NOT NULL DEFAULT '0.00',
+  `shield`          decimal(1,2)           NOT NULL DEFAULT '0.00',
   `upgrade_credits` varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"probability":5,"amount":100000}]',
   `upgrade_uridium` varchar(2048)          NOT NULL DEFAULT '[]' COMMENT '[{"probability":5,"amount":200}]',
   PRIMARY KEY (`id`)
